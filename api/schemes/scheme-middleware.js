@@ -6,6 +6,8 @@
     "message": "scheme with scheme_id <actual id> not found"
   }
 */
+const { findById } = require("./scheme-model");
+
 const checkSchemeId = (req, res, next) => {
   next();
 };
@@ -18,8 +20,9 @@ const checkSchemeId = (req, res, next) => {
     "message": "invalid scheme_name"
   }
 */
-const validateScheme = (req, res, next) => {};
-
+const validateScheme = (req, res, next) => {
+  next();
+};
 /*
   If `instructions` is missing, empty string or not a string, or
   if `step_number` is not a number or is smaller than one:
@@ -29,7 +32,9 @@ const validateScheme = (req, res, next) => {};
     "message": "invalid step"
   }
 */
-const validateStep = (req, res, next) => {};
+const validateStep = (req, res, next) => {
+  next();
+};
 
 module.exports = {
   checkSchemeId,
