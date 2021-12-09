@@ -20,14 +20,14 @@ async function findById(scheme_id) {
   const stepsArr = await db("schemes as sc")
     .leftJoin("steps as st", "sc.scheme_id", "st.scheme_id")
     .select("sc.*", "st.step_id", "st.step_number", "st.instructions")
-    .where("sc.scheme_id", scheme_id || 0)
+    .where("sc.scheme_id", scheme_id)
     .orderBy("st.step_number");
 
   return {
     scheme_id: stepsArr[0].scheme_id,
     scheme_name: stepsArr[0].scheme_name,
     steps:
-      stepsArr.length === 1
+      stepsArr[0].step_id === null
         ? []
         : stepsArr.map((step) => {
             return {
@@ -46,7 +46,8 @@ async function findSteps(scheme_id) {
     .select("sc.scheme_name", "st.step_id", "st.step_number", "st.instructions")
     .orderBy("st.step_number");
 
-  return stepsArr;
+  if (stepsArr[0].step_id === null) return [];
+  else return stepsArr;
 
   // EXERCISE C
   /*
